@@ -206,10 +206,6 @@ app.post('/pad/:room/files/:file/delete', (req, res) => {
 app.get('/tools/draw', (_req, res) => {
   res.render('draw', { title: 'Diagram Workspace', drawIoUrl: DRAW_IO_URL });
 });
-app.get('/tools/topology-sandbox', (_req, res) => {
-  res.redirect('/tools/draw');
-});
-
 // Tools: PDF -> JPG
 app.get('/tools/pdf-to-jpg', (_req, res) => {
   res.render('tool_pdf_to_jpg', { title: 'PDF → JPG' });
