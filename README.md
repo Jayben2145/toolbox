@@ -35,7 +35,7 @@ Verify: `docker compose version`
 ### 2. Build the image
 
 ```bash
-git clone [<repo-url>](https://github.com/Jayben2145/toolbox.git) shared-pad
+git clone https://github.com/Jayben2145/toolbox.git shared-pad
 cd shared-pad
 docker build -t shared-pad .
 ```
