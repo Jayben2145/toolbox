@@ -2,12 +2,12 @@ extends layout
 
 block content
   header.appbar
-    a.back(href="/" title="Back to home") ← Back
+    a.back(href=base title="Back to home") ← Back
     h1 Shared Pad
     div.status Enter a key to open a pad
 
   main.container
-    form(action="/pad", method="get", class="card", id="roomForm")
+    form(action=base + 'pad', method="get", class="card", id="roomForm")
       label(for="room") Enter a key / pin
       .row
         input#room(type="text" name="room" placeholder="e.g. bob123" required minlength="1" maxlength="64" pattern="[A-Za-z0-9_-]+")

@@ -4,9 +4,9 @@ html(lang="en")
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1")
     title #{title} · Shared Pad
-    link(rel="stylesheet", href="/style.css")
+    link(rel="stylesheet", href=base + 'style.css')
   body
     block content
-    script(src="/socket.io/socket.io.js")
-    script(src="/client.js")
+    script(src=base + 'socket.io/socket.io.js')
+    script(src=base + 'client.js')
     block scripts

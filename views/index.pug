@@ -7,13 +7,16 @@ block content
 
   main.container
     .grid
-      a.card(href="/pad")
+      a.card(href=base + 'pad')
         h2 Shared Pad
         p A simple realtime text pad. Enter a key to share.
-      a.card(href="/tools/draw")
+      a.card(href=base + 'tools/draw')
         h2 Diagram Workspace
         p Launch the embedded draw.io editor alongside your existing tools.
-      a.card(href="/tools/pdf-to-jpg")
+      a.card(href=base + 'tools/compare')
+        h2 Compare
+        p Paste two blocks of text and see line-by-line differences.
+      a.card(href=base + 'tools/pdf-to-jpg')
         h2 PDF → JPG
         p Convert a PDF into JPG images (server-side).
 

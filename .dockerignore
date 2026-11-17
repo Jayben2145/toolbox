@@ -9,3 +9,7 @@ yarn-debug.log*
 
 # Don’t bake runtime data into the image
 data
+
+# Never bake local secrets/config into the image
+.env
+.env.*

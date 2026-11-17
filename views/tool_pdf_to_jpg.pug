@@ -2,12 +2,12 @@ extends layout
 
 block content
   header.appbar
-    a.back(href="/" title="Back to home") ← Back
+    a.back(href=base title="Back to home") ← Back
     h1 PDF → JPG
     div.status Server-side conversion using poppler
 
   main.container
-    form.card(action="/tools/pdf-to-jpg" method="post" enctype="multipart/form-data")
+    form.card(action=base + 'tools/pdf-to-jpg' method="post" enctype="multipart/form-data")
       label(for="pdf") Select PDF (max 25MB)
       input(type="file" name="pdf" id="pdf" accept="application/pdf" required)
 

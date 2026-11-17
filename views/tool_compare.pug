@@ -1,0 +1,58 @@
+extends layout
+
+block content
+  header.appbar
+    a.back(href=base title="Back to home") ← Back
+    h1 Compare
+    div.status Line-by-line text diff · runs in your browser
+
+  main.container.compare-container
+    .compare-inputs
+      .compare-pane
+        label(for="cmpBase") Base (original)
+        textarea#cmpBase.compare-text(placeholder="Paste the original text here…" spellcheck="false")
+      .compare-pane
+        label(for="cmpOther") Compared (changed)
+        textarea#cmpOther.compare-text(placeholder="Paste the text to compare against the base…" spellcheck="false")
+
+    .compare-toolbar
+      button#cmpRun.btn-primary(type="button" title="Ctrl+Enter") Compare
+      button#cmpSwap(type="button") Swap
+      button#cmpClear(type="button") Clear
+      label.check
+        input#cmpTrim(type="checkbox")
+        |  Ignore leading/trailing whitespace
+      label.check
+        input#cmpCase(type="checkbox")
+        |  Ignore case
+      label.check
+        input#cmpOnly(type="checkbox")
+        |  Only show differences
+
+    .compare-legend
+      span.chip.chip-del Removed — in base, missing from compared
+      span.chip.chip-edit Edited — line changed
+      span.chip.chip-ins Added — only in compared
+
+    section#cmpResult.compare-result.hidden
+      .compare-summary
+        span#cmpSummary
+        button#cmpCopy(type="button") Copy as text
+      .compare-table-wrap
+        table.compare-table
+          colgroup
+            col.num
+            col
+            col.num
+            col
+          thead
+            tr
+              th(colspan="2") Base
+              th(colspan="2") Compared
+          tbody#cmpBody
+
+  footer.foot
+    p Comparison happens locally in your browser. Nothing you paste here is uploaded.
+
+block scripts
+  script(src=base + 'compare.js')

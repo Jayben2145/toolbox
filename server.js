@@ -22,6 +22,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 
+// Page-relative prefix back to the app root ("./", "../", ...). Views build links/assets
+// from it so the site also works when mounted under a sub-path (e.g. code-server /proxy/3000/).
+app.use((req, res, next) => {
+  const depth = req.path.split('/').length - 2;
+  res.locals.base = depth > 0 ? '../'.repeat(depth) : './';
+  next();
+});
+
 // --- utils & storage dirs ---
 const DATA_DIR = path.join(__dirname, 'data');
 const PAD_DIR = path.join(DATA_DIR, 'pads');
@@ -205,6 +213,10 @@ app.post('/pad/:room/files/:file/delete', (req, res) => {
 // Tools: Diagram workspace
 app.get('/tools/draw', (_req, res) => {
   res.render('draw', { title: 'Diagram Workspace', drawIoUrl: DRAW_IO_URL });
+});
+// Tools: Text compare (diff runs entirely in the browser — nothing is sent to the server)
+app.get('/tools/compare', (_req, res) => {
+  res.render('tool_compare', { title: 'Compare' });
 });
 // Tools: PDF -> JPG
 app.get('/tools/pdf-to-jpg', (_req, res) => {

@@ -1,5 +1,6 @@
 (() => {
-  const socket = io();
+  // connect relative to where client.js was served from, so it also works under a sub-path proxy
+  const socket = io({ path: new URL('socket.io', document.currentScript.src).pathname });
   const pad = document.getElementById('pad');
   const users = document.getElementById('users');
   const sync = document.getElementById('sync');

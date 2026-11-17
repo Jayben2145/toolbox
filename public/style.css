@@ -482,3 +482,82 @@ h1 { margin: 0; font-size: 18px; letter-spacing: .3px; }
     min-height: 440px;
   }
 }
+
+/* ---------------- Compare tool ---------------- */
+:root {
+  --diff-del: rgba(248,113,113,0.16);
+  --diff-del-strong: rgba(248,113,113,0.45);
+  --diff-del-text: #fecaca;
+  --diff-edit: rgba(96,165,250,0.16);
+  --diff-edit-strong: rgba(96,165,250,0.45);
+  --diff-edit-text: #bfdbfe;
+  --diff-ins: rgba(52,211,153,0.14);
+  --diff-ins-strong: rgba(52,211,153,0.4);
+  --diff-ins-text: #a7f3d0;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+.container.compare-container { max-width: 1400px; display: flex; flex-direction: column; gap: 14px; }
+.compare-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare-pane { display: flex; flex-direction: column; gap: 6px; }
+.compare-pane label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+.compare-text {
+  width: 100%; min-height: 280px; resize: vertical;
+  padding: 12px; font: 13px/1.5 var(--mono);
+  color: var(--text); background: var(--panel);
+  border: 1px solid rgba(255,255,255,.08); border-radius: 12px; outline: none;
+  white-space: pre; overflow: auto; tab-size: 4;
+}
+.compare-text:focus { border-color: rgba(96,165,250,.8); box-shadow: 0 0 0 3px rgba(96,165,250,.25); }
+
+.compare-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.compare-toolbar button, .compare-summary button {
+  background: rgba(96,165,250,0.18); border: 1px solid rgba(96,165,250,0.35);
+  color: var(--text); font-weight: 600; font-size: 14px;
+  padding: 9px 14px; border-radius: 10px; cursor: pointer;
+}
+.compare-toolbar button:hover, .compare-summary button:hover { border-color: rgba(96,165,250,0.6); background: rgba(96,165,250,0.28); }
+.compare-toolbar button.btn-primary { background: var(--accent); color: #0b1022; border-color: var(--accent); padding: 9px 22px; }
+.compare-toolbar .check { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--muted); cursor: pointer; }
+
+.compare-legend, .compare-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
+.compare-summary { justify-content: space-between; }
+.compare-summary > span { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.compare-summary .ok { color: var(--ok); }
+.chip { padding: 3px 10px; border-radius: 999px; border: 1px solid transparent; font-size: 12px; }
+.chip-del { background: var(--diff-del); border-color: var(--diff-del-strong); color: var(--diff-del-text); }
+.chip-edit { background: var(--diff-edit); border-color: var(--diff-edit-strong); color: var(--diff-edit-text); }
+.chip-ins { background: var(--diff-ins); border-color: var(--diff-ins-strong); color: var(--diff-ins-text); }
+
+.compare-result { display: flex; flex-direction: column; gap: 10px; }
+.compare-table-wrap {
+  border: 1px solid rgba(255,255,255,.08); border-radius: 12px; overflow: auto;
+  max-height: 75vh; background: var(--panel);
+}
+.compare-table { width: 100%; border-collapse: collapse; table-layout: fixed; font: 13px/1.5 var(--mono); }
+.compare-table col.num { width: 52px; }
+.compare-table thead th {
+  position: sticky; top: 0; z-index: 1; text-align: left;
+  padding: 8px 12px; font: 600 12px/1.4 ui-sans-serif, system-ui, sans-serif;
+  text-transform: uppercase; letter-spacing: .6px; color: var(--muted);
+  background: #0f172a; border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.compare-table td { padding: 1px 10px; vertical-align: top; }
+.compare-table td.num {
+  text-align: right; color: rgba(156,163,175,.6); user-select: none;
+  border-right: 1px solid rgba(255,255,255,.06);
+}
+.compare-table td.code { white-space: pre-wrap; word-break: break-all; }
+.compare-table td.code + td.num { border-left: 1px solid rgba(255,255,255,.12); }
+.compare-table td.del { background: var(--diff-del); color: var(--diff-del-text); }
+.compare-table td.ins { background: var(--diff-ins); color: var(--diff-ins-text); }
+.compare-table td.edit { background: var(--diff-edit); color: var(--diff-edit-text); }
+.compare-table td.empty { background: repeating-linear-gradient(135deg, transparent 0 6px, rgba(255,255,255,.025) 6px 12px); }
+.compare-table td.edit .hl { background: var(--diff-edit-strong); border-radius: 3px; color: #fff; }
+.compare-table tr.row-skip td {
+  text-align: center; color: var(--muted); font-size: 12px; padding: 4px;
+  background: rgba(255,255,255,.03); border-top: 1px solid rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+@media (max-width: 800px) {
+  .compare-inputs { grid-template-columns: 1fr; }
+}

@@ -6,11 +6,21 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DRAW_IO_URL=${DRAW_IO_URL:-http://127.0.0.1:8080/?embed=1&ui=atlas&spin=1&proto=json}
+      # URL the *browser* uses to load draw.io (not the server). See README.
+      - DRAW_IO_URL=${DRAW_IO_URL:-http://localhost:8080/?embed=1&ui=atlas&spin=1&proto=json}
     ports:
-      - "9550:3000"
+      # Set APP_PORT=127.0.0.1:9550 in .env when nginx runs on the same host
+      - "${APP_PORT:-9550}:3000"
     volumes:
       - sharedpad-data:/usr/src/app/data
+    restart: unless-stopped
+
+  drawio:
+    image: jgraph/drawio:latest
+    container_name: drawio
+    ports:
+      # Set DRAWIO_PORT=127.0.0.1:8080 in .env when nginx runs on the same host
+      - "${DRAWIO_PORT:-8080}:8080"
     restart: unless-stopped
 
 volumes:
